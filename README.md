@@ -1,2 +1,2 @@
-# steam-scraper
+# steam-scraper/twitter bot
 
