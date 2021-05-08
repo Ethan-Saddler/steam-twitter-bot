@@ -1,0 +1,1 @@
+Where games go that were scraped from most recent run of Steam_Scraper.exe
