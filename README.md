@@ -14,7 +14,7 @@ Also requires [chromedriver](https://chromedriver.chromium.org/downloads) - be s
 Unzip Steam_Scraper_Main.zip and put all the contents in the same folder (with chromedriver.exe). Then simply run the executable (may require administrator). The first time, every game scraped should return in game_sales.txt; however, if you run it again, it will return an accurate update of new games on sale, albeit with them seperated by a key, which is used to split the lines later when formatting an alert outside the text file.  
 
 ## Mac
-Unzip Steam_Scraper_Main.zip and put all the contents in the same folder (with chromedriver.exe). Open terminal and type "cd Steam_Scraper_Main". Then type "python ./Steam_Scraper_Master.py". The first time, every game scraped should return in game_sales.txt; however, if you run it again, it will return an accurate update of new games on sale, albeit with them seperated by a key, which is used to split the lines later when formatting an alert outside the text file.  
+Unzip Steam_Scraper_Main.zip and put all the contents in the same folder (with chromedriver.exe). Open terminal and cd into Steam_Scraper_Main. Then type "python Steam_Scraper_Master.py". The first time, every game scraped should return in game_sales.txt; however, if you run it again, it will return an accurate update of new games on sale, albeit with them seperated by a key, which is used to split the lines later when formatting an alert outside the text file.  
 
 
 
