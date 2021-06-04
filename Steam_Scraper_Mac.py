@@ -4,15 +4,15 @@ Reqs: This program requires anaconda and both selenium and beautifulsoup (used f
 currently the program is able to launch a tab of chrome which also requires chromedriver to be installed (edit path of chromedriver under 
 "webdriver.Chrome(executable_path=r"insert here")). Zip comes with every other file needed, but if not you need games_new.txt,
 games_old.txt and games_sales.txt. This program is meant to be used in conjunction with something that formats the text files,
-as the content is seperated by a key.
+as the content is seperated by a key. Run through changing directory to where file is stored
 
 Features: It opens a window, then scrolls down to load the full page. Then it downloads the html, closes the window and parses.
 Finally it searches for the required tags and saves them in a list then. Saves all games (new/old) to a txt file then cross references 
 to find new games on sale.
 
-Contributions: See line 146-149, Austin Zhuang helped build for loop for links, and helped adapt it to main.
+Contributions: See line 153-157, Austin Zhuang helped build for loop for links, and helped adapt it to main.
 
-Version: Master - Stores games locally to cross reference and store txt file of games on sale.
+Version: Master - Stores games locally to cross reference and store txt file of games on sale. Used in conjunction with twitter bot.
 Name: Ethan Saddler
 
 '''
@@ -77,6 +77,7 @@ def organize_game_info(game, prices, percentage, link):
 
 
 # Setting up files for program: new becomes old and clears new
+# (Path of the file to be opened, how to open it - read or write, what encoding to open with)
 games_new = open(games_new_path,"r", encoding="utf-8")
 games_old = open(games_old_path,"w+", encoding="utf-8")
 for line in games_new:
@@ -84,18 +85,22 @@ for line in games_new:
 games_new = open(games_new_path,"w+", encoding="utf-8")
 games_old.close()
 
-#identifying path of chromedriver
+# identifying path of chromedriver
 browser = webdriver.Chrome(executable_path=chrome_driver_path)
 
-#opening steam store
+# opening steam store
 browser.get("https://store.steampowered.com/search/?sort_by=Name_ASC&category1=998&supportedlang=english&specials=1")
 time.sleep(0.5)
 
-#reading source to determine how many games
+# reading source to determine how many games there are on the page
 steam_html = browser.page_source
+
+# parsing the raw page source
 steam_soup = soup(steam_html, "html.parser")
 
-#determining num of pgdn's needed
+# determining num of pgdn's needed
+
+# finding the text at top of page that contains the number of games
 game_num = steam_soup.find("div", {"id":"search_results_filtered_warning_persistent"})
 text_game_num = game_num.div.text
 string_game_num = str(text_game_num)
@@ -105,11 +110,12 @@ int_game_num = int(string_game_num.split()[0].replace(",", ""))
 
 no_of_pagedowns = int_game_num//10
 
-#accessing the body of the site
+#accessing the body of the site so that you can interact with it
 element = browser.find_element_by_tag_name("body")
 
 #while loop of paging down to reach bottom of site (overshoots to account for error)
 while no_of_pagedowns:
+    # enters keys on "body" of page.
     element.send_keys(Keys.PAGE_DOWN)
     time.sleep(0.3)
     no_of_pagedowns-=1
@@ -137,6 +143,7 @@ new_name = []
 
 #for loop to organize all of the data (discount percent, price (both original and new) and name)
 for container in game_container:
+    # checks to see if the game is a "special", but not on sale.
     if container.find("div", {"class":"col search_price discounted responsive_secondrow"}) != None:
         discount_percentage.append(container.find("div", {"class":"col search_discount responsive_secondrow"}))
         price.append(container.find("div", {"class":"col search_price discounted responsive_secondrow"}))
@@ -145,18 +152,20 @@ for container in game_container:
 
 for link in game_links:
     if link.find("div", {"class":"col search_price discounted responsive_secondrow"}) != None:
+        # searching for attribute "href" and if it starts with url
         if 'https://store.steampowered.com' in link.attrs['href']:
             links_to_pages.append(link.attrs['href'])
 
-
+# removing tags and extra spaces
 discount_percentage = clean_content(discount_percentage)
 price = clean_content(price)
 new_name = clean_content(new_name)
 
-#properly formats the prices and names so that it is spaced out and filtered
+#properly formats the prices and names so that it has the keys seperating them
 for n, x in enumerate(price):
     price[n] = x.replace("$", key + "$")
 
+# removes VR Supported and VR Only from game content (for whatever reason it is stored with the title)
 for n, x in enumerate(new_name):
     new_name[n] = x.replace("\n\nVR Only", "").replace("\n\nVR Supported", "")
     
