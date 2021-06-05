@@ -26,7 +26,7 @@ Unzip Steam_Scraper_Main.zip and put all the contents in the same folder (with c
 
 ### Windows and Mac
 
-Follow the same procedure as Steam Scraper. Open the test_integration_2.py file in a editor. Read the instructions and insert your keys and tokens from your developer account. Then run the file once you have data in the text file from the Steam Scraper.
+Follow the same procedure as Steam Scraper. Open the Auto_Tweet.py file in a editor. Read the instructions and insert your keys and tokens from your developer account. Then run the file once you have data in the text file from the Steam Scraper.
 
 
 
