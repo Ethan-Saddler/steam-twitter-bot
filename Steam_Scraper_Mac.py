@@ -105,7 +105,7 @@ game_num = steam_soup.find("div", {"id":"search_results_filtered_warning_persist
 text_game_num = game_num.div.text
 string_game_num = str(text_game_num)
 
-#removes the commas from the string, so that it can be an integer
+#removes the commas from the string, so that it can be an integer. .split seperates each word into strings on a list.
 int_game_num = int(string_game_num.split()[0].replace(",", ""))
 
 no_of_pagedowns = int_game_num//10
