@@ -1,5 +1,8 @@
-# Steam Scraper
+# Steam Scraper/Twitter Bot Overview
 Steam Scraper opens a window, then scrolls down to load the full page. It downloads the html, closes the window and parses. It searches for the required tags and saves them in a list then. Saves all games (new/old) to a txt file then cross references to find new games on sale. Includies game name, og price, new price, percentage and link to game.
+
+Twitter Bot uses the information gathered in a text file and using the key that seperates the game information, it formats the information to something that sounds like
+a normal tweet, then automatically tweets about any new sale on Steam.
 
 # Requirements
 Python -- Only extra libraries needed are bs4 (HTML Parser) and selenium (webdriver)  
@@ -8,7 +11,7 @@ To install, cd into the file's folder and do "pip install -r requirements.txt"
   
 Also requires [chromedriver](https://chromedriver.chromium.org/downloads) - be sure to place chromedriver.exe in the same folder as Steam_Scraper.py
 
-Twitter developer account
+Twitter developer account & information that is included with it.
 
 # Usage
 
